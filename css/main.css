@@ -1165,11 +1165,11 @@
 
 .shipping-cep-input {
   flex: 1;
-  height: 36px;
+  height: 40px;
   border: 1px solid #cccccc;
   border-radius: 4px;
   padding: 0 10px;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .shipping-calc-button {
@@ -1925,7 +1925,7 @@
   }
 
   .search-input {
-    font-size: 14px;
+    font-size: 16px !important;
   }
 
   .search-submit-btn {
@@ -2205,9 +2205,27 @@
     gap: 10px !important;
   }
 
+  /* Universal Mobile Input Rules - Prevents iOS/Android auto-zoom on focus */
+  input,
+  select,
+  textarea,
+  .form-control,
+  .shipping-cep-input,
+  .search-input {
+    font-size: 16px !important;
+  }
+
   .form-control {
     height: 46px !important;
-    font-size: 16px !important; /* Prevents iOS auto-zoom */
+  }
+
+  .shipping-cep-input {
+    height: 44px !important;
+  }
+
+  .shipping-calc-button {
+    height: 44px !important;
+    font-size: 14px !important;
   }
 
   /* Footer Mobile */
