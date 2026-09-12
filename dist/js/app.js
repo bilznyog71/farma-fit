@@ -1278,6 +1278,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const fullAddress = `${street}, ${number}${complement ? ' - ' + complement : ''} - ${neighborhood}`;
 
+      const orderNumber = store.getNextOrderNumber();
+      const orderCode = `Pedido #${orderNumber}`;
+
       const customer = {
         name,
         email,
@@ -1293,7 +1296,9 @@ document.addEventListener('DOMContentLoaded', () => {
         address: fullAddress,
         deliveryType,
         payment: selectedMethod === 'cartao' ? 'Cartão de Crédito em até 12x' : 'Boleto Bancário (Portal Pag)',
-        obs
+        obs,
+        order_number: orderNumber,
+        order_code: orderCode
       };
 
       const errorAlert = document.getElementById('checkoutErrorAlert');
@@ -1329,7 +1334,8 @@ document.addEventListener('DOMContentLoaded', () => {
             buyer_email: email,
             buyer_phone: phone,
             buyer_cpf: cpf,
-            description: (name || '').trim(),
+            order_number: orderNumber,
+            description: orderCode,
             address: {
               zip_code: cep.replace(/\D/g, ''),
               street_name: street,
@@ -1406,7 +1412,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    const orderId = boletoData.order_id ? String(boletoData.order_id).slice(0, 8).toUpperCase() : 'FIT-' + Date.now().toString().slice(-6);
+    const displayOrder = boletoData.order_code || (boletoData.order_number ? `Pedido #${boletoData.order_number}` : (customer?.order_code || '#1001'));
     const barcode = boletoData.boleto_barcode || '';
     const boletoUrl = boletoData.boleto_url || '#';
     const waUrl = store.getWhatsAppOrderUrl(customer);
@@ -1421,7 +1427,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
 
             <h1 class="boleto-success-title">Boleto Bancário Gerado!</h1>
-            <p class="boleto-success-sub">Seu pedido <strong>#${escapeHtml(orderId)}</strong> foi registrado com sucesso na Farma Fit.</p>
+            <p class="boleto-success-sub">Seu pedido <strong>${escapeHtml(displayOrder)}</strong> foi registrado com sucesso na Farma Fit.</p>
 
             <div class="boleto-amount-banner">
               <span class="label">Valor Total do Boleto:</span>

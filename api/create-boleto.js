@@ -50,6 +50,25 @@ function portalPagRequest(endpoint, method, payload, apiKey) {
   });
 }
 
+// Gerador sequencial de número de pedido (ex: Pedido #1001, Pedido #1002...)
+const START_EPOCH = 1789179940000;
+let lastOrderNum = 1000;
+
+function getNextOrderSequence(clientOrderNum) {
+  if (clientOrderNum && Number.isInteger(clientOrderNum) && clientOrderNum >= 1001) {
+    if (clientOrderNum > lastOrderNum) lastOrderNum = clientOrderNum;
+    return lastOrderNum;
+  }
+  const diffUnits = Math.floor((Date.now() - START_EPOCH) / (1000 * 60 * 3));
+  const candidate = 1001 + Math.max(0, diffUnits);
+  if (candidate > lastOrderNum) {
+    lastOrderNum = candidate;
+  } else {
+    lastOrderNum++;
+  }
+  return lastOrderNum;
+}
+
 module.exports = async (req, res) => {
   // CORS Headers
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -82,7 +101,8 @@ module.exports = async (req, res) => {
       buyer_cpf,
       address,
       description,
-      items
+      items,
+      order_number
     } = body || {};
 
     const apiKey = body?.apiKey || process.env.PORTALPAG_API_KEY || DEFAULT_API_KEY;
@@ -98,8 +118,8 @@ module.exports = async (req, res) => {
       return res.status(400).json({ success: false, error: 'Valor total do pedido inválido.' });
     }
 
-    if (!buyer_cpf) {
-      return res.status(400).json({ success: false, error: 'CPF do comprador é obrigatório para emissão de boleto bancário.' });
+    if (!buyer_name || !buyer_cpf) {
+      return res.status(400).json({ success: false, error: 'Nome e CPF são obrigatórios para emissão de boleto bancário.' });
     }
 
     if (!buyer_email) {
@@ -121,10 +141,12 @@ module.exports = async (req, res) => {
     };
 
     const customerName = (buyer_name || 'Cliente').trim();
-    // Apenas o nome do cliente é enviado na descrição para a gateway (sem menção a farma fit ou farmácia)
-    const customerDescription = (description && !description.toLowerCase().includes('farma')) ? description.trim() : customerName;
+    const clientOrderNum = order_number ? parseInt(order_number, 10) : null;
+    const orderSeq = getNextOrderSequence(clientOrderNum);
+    const orderCode = `Pedido #${orderSeq}`;
 
     // 1. Criar Pedido no Portal Pag (POST /v1/orders)
+    // Mostra "Pedido #1001" na coluna de descrição da gateway
     const orderPayload = {
       amount: parseFloat(Number(amount).toFixed(2)),
       method: 'boleto',
@@ -132,9 +154,10 @@ module.exports = async (req, res) => {
       buyer_email: buyer_email,
       buyer_phone: cleanPhone,
       buyer_cpf: cleanCpf,
-      description: customerDescription,
+      description: orderCode,
       address: formattedAddress,
       metadata: {
+        order_number: orderSeq,
         customer: customerName,
         items_count: items?.length || 1
       }
@@ -197,6 +220,8 @@ module.exports = async (req, res) => {
     return res.status(200).json({
       success: true,
       order_id: orderId,
+      order_code: orderCode,
+      order_number: orderSeq,
       amount: orderPayload.amount,
       boleto_url: boletoUrl,
       boleto_barcode: boletoBarcode,

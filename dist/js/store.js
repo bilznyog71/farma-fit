@@ -259,17 +259,32 @@ const FarmaStore = {
     }, 3800);
   },
 
+  // Gerador sequencial de número de pedido local
+  getNextOrderNumber() {
+    try {
+      const cur = parseInt(localStorage.getItem('farma_order_counter') || '1000', 10);
+      const next = cur + 1;
+      localStorage.setItem('farma_order_counter', next.toString());
+      return next;
+    } catch (e) {
+      return 1001;
+    }
+  },
+
   // WhatsApp order builder - Formatted in Reais (R$) and Brasil Shipping
   getWhatsAppOrderUrl(customerData = {}) {
     const phone = window.FARMA_DATA.store.whatsapp;
     if (this.cart.length === 0) return `https://wa.me/${phone}`;
 
     const isCard = (customerData.payment || '').toLowerCase().includes('cartão');
+    const orderNum = customerData.order_number || this.getNextOrderNumber();
+    const orderCode = customerData.order_code || `Pedido #${orderNum}`;
 
     let msg = isCard 
       ? `*💳 NOVO PEDIDO NO CARTÃO DE CRÉDITO (ATÉ 12X) - FARMA FIT*\n`
       : `*📦 NOVO PEDIDO - FARMA FIT (ENVIO BRASIL)*\n`;
     msg += `----------------------------------------\n`;
+    msg += `📋 *Identificação:* ${orderCode}\n`;
     
     if (customerData.name) msg += `👤 *Nome Completo:* ${customerData.name}\n`;
     if (customerData.phone) msg += `📞 *WhatsApp:* ${customerData.phone}\n`;
