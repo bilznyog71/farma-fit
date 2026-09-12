@@ -1164,18 +1164,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function openCartDrawer() {
     cartDrawerOverlay.classList.add('active');
+    document.body.classList.add('cart-open');
     document.body.style.overflow = 'hidden';
   }
 
   function closeCartDrawer() {
     cartDrawerOverlay.classList.remove('active');
+    document.body.classList.remove('cart-open');
     document.body.style.overflow = '';
   }
 
   function updateCartUI() {
     if (!cartDrawerItems) return;
+    const cartFooter = document.querySelector('.cart-drawer-footer');
 
     if (store.cart.length === 0) {
+      if (cartFooter) cartFooter.style.display = 'none';
       cartDrawerItems.innerHTML = `
         <div style="text-align: center; padding: 40px 15px; color: #888;">
           <p style="font-size: 15px; margin-bottom: 8px;">Sem produto(s) no carrinho.</p>
@@ -1188,6 +1192,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (cartDrawerCurrencies) cartDrawerCurrencies.innerHTML = '';
       return;
     }
+
+    if (cartFooter) cartFooter.style.display = 'block';
 
     cartDrawerItems.innerHTML = store.cart.map(item => {
       const p = item.product;
