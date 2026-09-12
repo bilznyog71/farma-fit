@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loja Online - Farma Fit Farmácia Fitness</title>
+  <meta name="description" content="A única farmácia fitness em Ciudad del Este, Paraguai. Especializada em produtos 100% originais: Landerlan Gold, Tirzepatidas, Lipoless, GNC, Dymatize e suplementos importados com envio para todo o Brasil." />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://farma.fit/wp-content/uploads/2026/01/cropped-Logo-Farmafit-navegador-32x32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="https://farma.fit/wp-content/uploads/2026/01/cropped-Logo-Farmafit-navegador-180x180.png" />
+
+  <!-- Google Fonts: Lato (Oficial do Farma.fit) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/design-system.css" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+  <!-- ================= TOPBAR (LINHA FINA COM ANIMAÇÃO SLIDING TICKER) ================= -->
+  <aside class="header-top">
+    <div class="ticker-wrap">
+      <div class="ticker-content">
+        <div class="ticker-item">
+          <span class="topbar-badge">FARMÁCIA FITNESS OFICIAL 🇵🇾</span>
+          <span>&bull;</span>
+          <span>ENVIOS SEGUROS PARA TODO O BRASIL 🇧🇷</span>
+          <span>&bull;</span>
+          <span>PRODUTOS 100% ORIGINAIS LACRADOS</span>
+        </div>
+        <div class="ticker-item" aria-hidden="true">
+          <span class="topbar-badge">FARMÁCIA FITNESS OFICIAL 🇵🇾</span>
+          <span>&bull;</span>
+          <span>ENVIOS SEGUROS PARA TODO O BRASIL 🇧🇷</span>
+          <span>&bull;</span>
+          <span>PRODUTOS 100% ORIGINAIS LACRADOS</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= SITE HEADER ================= -->
+  <header class="site-header">
+    <div class="header-main">
+      <div class="container header-main-row">
+        <!-- Mobile Menu Hamburger Button (Mobile only) -->
+        <button type="button" id="mobileMenuToggleBtn" class="mobile-menu-toggle-btn" aria-label="Abrir Menu">
+          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+
+        <!-- Logo Farma Fit Oficial -->
+        <a href="#/shop" class="header-logo" title="Farma Fit Farmácia Fitness">
+          <img 
+            src="https://farma.fit/wp-content/uploads/2025/12/Logo-Farmafit-VX-for-black.png" 
+            alt="Farma Fit Farmácia Fitness" 
+            class="header-logo-img" 
+          />
+        </a>
+
+        <!-- Global Search Bar -->
+        <div class="header-search">
+          <form class="search-form-wrapper" id="headerSearchForm" onsubmit="event.preventDefault();" autocomplete="off">
+            <div class="search-input-box">
+              <svg class="search-icon-left" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+              <input 
+                type="text" 
+                id="globalSearchInput" 
+                class="search-input" 
+                placeholder="Pesquisar Landerlan, Tirzec, Lipoless, Whey..." 
+                aria-label="Pesquisar produtos"
+                autocomplete="off"
+                spellcheck="false"
+              />
+              <svg class="search-mic-icon" width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+              </svg>
+              <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Limpar busca" style="display: none;">
+                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <button type="submit" class="search-submit-btn" aria-label="Pesquisar">
+              Buscar
+            </button>
+
+            <!-- Autocomplete Live Dropdown Overlay -->
+            <div id="searchAutocompleteDropdown" class="search-autocomplete-dropdown" style="display: none;"></div>
+          </form>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <a href="#/favoritos" class="header-link-btn header-fav-btn" title="Meus Produtos Favoritos">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <span>Favoritos</span>
+            <span class="wishlist-count-badge" style="color: #fff; font-size: 11px;">(0)</span>
+          </a>
+
+          <a href="https://wa.me/5545988085189" target="_blank" rel="noopener" class="header-link-btn header-wa-btn" style="color: #6bd068;" title="WhatsApp da Farmácia">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.043-1.077-.078-.501-.157-1.127-.417-1.926-.948-1.424-.949-2.348-2.39-2.457-2.534-.108-.145-.889-1.182-.889-2.256 0-1.073.563-1.603.762-1.821.199-.217.433-.271.578-.271.144 0 .289.002.415.008.134.006.314-.051.491.373.18.434.615 1.499.668 1.608.054.109.09.236.018.381-.073.145-.108.235-.217.362-.108.127-.228.283-.326.38-.108.109-.221.228-.095.445.127.217.562.927 1.208 1.503.832.742 1.533.971 1.75 1.079.217.109.344.091.471-.054.127-.145.543-.633.688-.851.144-.217.289-.181.488-.109.198.073 1.265.597 1.482.706.217.109.362.163.415.253.054.091.054.526-.09 1.079z"/></svg>
+            <span class="btn-text-desktop">WhatsApp</span>
+          </a>
+
+          <button type="button" class="header-cart-btn btn-cart-toggle" aria-label="Ver Carrinho">
+            <svg width="17" height="17" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span class="btn-text-desktop">Carrinho</span>
+            <span class="cart-counter-badge cart-count-badge">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header Bottom Navigation (Flatsome Wide-Nav) -->
+    <nav class="header-bottom-nav">
+      <div class="container">
+        <ul class="nav-menu-list">
+          <li class="nav-menu-item"><a href="#/shop" class="dept-link active">Loja Online</a></li>
+          <li class="nav-menu-item"><a href="#/shop" class="dept-link" onclick="window.FarmaStore && (window.location.hash='#/shop'); setTimeout(()=>{document.querySelector('[data-category=\'hormonio\']')?.click()},100)">Hormônios & Landerlan</a></li>
+          <li class="nav-menu-item"><a href="#/shop" class="dept-link" onclick="window.FarmaStore && (window.location.hash='#/shop'); setTimeout(()=>{document.querySelector('[data-category=\'emagrecimento\']')?.click()},100)">Emagrecimento & Peptídeos</a></li>
+          <li class="nav-menu-item"><a href="#/shop" class="dept-link" onclick="window.FarmaStore && (window.location.hash='#/shop'); setTimeout(()=>{document.querySelector('[data-category=\'whey\']')?.click()},100)">Proteínas & Whey</a></li>
+          <li class="nav-menu-item"><a href="#/shop" class="dept-link" onclick="window.FarmaStore && (window.location.hash='#/shop'); setTimeout(()=>{document.querySelector('[data-category=\'creatina\']')?.click()},100)">Creatina</a></li>
+          <li class="nav-menu-item"><a href="#/shop" class="dept-link" onclick="window.FarmaStore && (window.location.hash='#/shop'); setTimeout(()=>{document.querySelector('[data-category=\'pre-treino\']')?.click()},100)">Pré-Treino</a></li>
+          <li class="nav-menu-item"><a href="#/como-trabalhamos" class="dept-link">Como Trabalhamos?</a></li>
+          <li class="nav-menu-item"><a href="#/localizacao" class="dept-link">Localização</a></li>
+          <li class="nav-menu-item"><a href="#/contato" class="dept-link">Contato</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ================= FARMA NOTICE BAR (LINHA FINA COM ANIMAÇÃO SLIDING TICKER) ================= -->
+  <div class="farma-notice-bar">
+    <div class="ticker-wrap">
+      <div class="ticker-content fast-ticker">
+        <div class="ticker-item">
+          <span>ACEITAMOS CARTÃO DE CRÉDITO E BOLETO BANCÁRIO</span>
+          <span>&bull;</span>
+          <span>ENVIOS COM SEGURO E RASTREAMENTO PARA TODO O BRASIL 🇧🇷</span>
+          <span>&bull;</span>
+          <span>PRODUTOS 100% ORIGINAIS LACRADOS COM VERIFICAÇÃO DE LOTE</span>
+          <span>&bull;</span>
+        </div>
+        <div class="ticker-item" aria-hidden="true">
+          <span>ACEITAMOS CARTÃO DE CRÉDITO E BOLETO BANCÁRIO</span>
+          <span>&bull;</span>
+          <span>ENVIOS COM SEGURO E RASTREAMENTO PARA TODO O BRASIL 🇧🇷</span>
+          <span>&bull;</span>
+          <span>PRODUTOS 100% ORIGINAIS LACRADOS COM VERIFICAÇÃO DE LOTE</span>
+          <span>&bull;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN CONTENT VIEW ================= -->
+  <main id="app" role="main"></main>
+
+  <!-- ================= SITE FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1: Farma Fit Sobre -->
+        <div class="footer-col">
+          <img 
+            src="https://farma.fit/wp-content/uploads/2025/12/Logo-Farmafit-VX-for-black.png" 
+            alt="Farma Fit" 
+            style="height: 38px; margin-bottom: 12px;" 
+          />
+          <p>
+            A única farmácia fitness em Ciudad del Este, Paraguai. Especializada em produtos 100% originais com procedência auditada e envio expresso com seguro para todo o território brasileiro.
+          </p>
+          <p style="margin-top: 10px; font-size: 12px; color: #94a3b8;">
+            📍 Galería Jebai Center &bull; Piso 3, Loja 2208 &bull; Ciudad del Este &bull; Paraguai
+          </p>
+        </div>
+
+        <!-- Col 2: Institucional -->
+        <div class="footer-col">
+          <h4>Institucional</h4>
+          <ul class="footer-links-list">
+            <li><a href="#/shop">&raquo; Loja Online</a></li>
+            <li><a href="#/favoritos">&raquo; Meus Favoritos</a></li>
+            <li><a href="#/como-trabalhamos">&raquo; Como Trabalhamos?</a></li>
+            <li><a href="#/localizacao">&raquo; Localização no Jebai Center</a></li>
+            <li><a href="#/contato">&raquo; Contato & Atendimento</a></li>
+            <li><a href="#/termos-de-uso">&raquo; Termos de Uso</a></li>
+            <li><a href="#/politica-de-devolucao">&raquo; Políticas de Devolução</a></li>
+            <li><a href="#/politicas-de-privacidade">&raquo; Políticas de Privacidade</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Atendimento Direto Oficial (SEM redes sociais) -->
+        <div class="footer-col">
+          <h4>Atendimento Oficial</h4>
+          <p style="margin-bottom: 8px;">
+            <strong>WhatsApp da Farmácia:</strong><br/>
+            <a href="https://wa.me/5545988085189" target="_blank" rel="noopener" style="color: #6bd068; font-weight: 700; font-size: 14px;">+55 45 98808-5189</a>
+          </p>
+          <p style="margin-bottom: 8px;">
+            <strong>Telefone:</strong><br/>
+            <a href="tel:+5545988085189" style="color: #cbd5e1;">+55 45 98808-5189</a>
+          </p>
+          <p style="margin-bottom: 8px;">
+            <strong>E-mail:</strong><br/>
+            <a href="mailto:contato@farmafit.com" style="color: #cbd5e1;">contato@farmafit.com</a>
+          </p>
+          <p style="font-size: 12px; color: #718096; margin-top: 6px;">
+            Horário: Segunda a Sábado, 7h30 às 16h
+          </p>
+        </div>
+
+        <!-- Col 4: Pagamentos & Entregas -->
+        <div class="footer-col">
+          <h4>Pagamentos & Entregas</h4>
+          <p style="margin-bottom: 12px;">
+            Condições flexíveis com envio para todo o Brasil:
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px;">
+            <span style="background: #25854b; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">Preços em Reais (R$)</span>
+            <span style="background: #1e293b; color: #cbd5e1; padding: 4px 8px; border-radius: 4px; font-size: 11px;">Cartão de Crédito (até 12x)</span>
+            <span style="background: #1e293b; color: #cbd5e1; padding: 4px 8px; border-radius: 4px; font-size: 11px;">Boleto Bancário</span>
+          </div>
+          <p style="font-size: 12px; color: #94a3b8; line-height: 1.5;">
+            Garantia de procedência com lacres e verificação oficial de lote de cada laboratório.
+          </p>
+        </div>
+      </div>
+
+      <!-- Copyright Bottom -->
+      <div class="footer-bottom-copy">
+        <p>
+          Todos os direitos reservados 2026 &copy; <strong>FARMA FIT FARMÁCIA FITNESS</strong><br/>
+          FARMA FIT SOCIEDAD ANÓNIMA - RUC 80154367-3<br/>
+          Av. Carlos Antonio López esquina com Monseñor Rodríguez, Galería Jebai Center, Piso 3, Loja 2208, Ciudad del Este - Paraguai.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= CART DRAWER ================= -->
+  <div id="cartDrawerOverlay" class="cart-drawer-overlay">
+    <aside class="cart-drawer" role="dialog" aria-label="Carrinho de Compras">
+      <div class="cart-drawer-header">
+        <h3 class="cart-drawer-title">Seu Carrinho</h3>
+        <button type="button" id="closeCartDrawerBtn" class="cart-close-btn" aria-label="Fechar Carrinho">&times;</button>
+      </div>
+
+      <div id="cartDrawerItems" class="cart-drawer-body"></div>
+
+      <div class="cart-drawer-footer">
+        <div class="cart-subtotal-row">
+          <span>Subtotal:</span>
+          <span id="cartDrawerSubtotal" style="color: #222;">R$ 0,00</span>
+        </div>
+        <div id="cartDrawerCurrencies" style="margin-bottom: 12px;"></div>
+        <button type="button" id="proceedCheckoutBtn" class="btn-proceed-checkout">
+          Finalizar Pedido
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ================= MOBILE MENU DRAWER ================= -->
+  <div id="mobileMenuOverlay" class="mobile-menu-overlay">
+    <aside id="mobileMenuDrawer" class="mobile-menu-drawer" role="dialog" aria-label="Menu Principal">
+      <div class="mobile-menu-header">
+        <a href="#/shop" class="mobile-menu-logo" id="mobileMenuLogoLink">
+          <img src="https://farma.fit/wp-content/uploads/2025/12/Logo-Farmafit-VX-for-black.png" alt="Farma Fit" />
+        </a>
+        <button type="button" id="mobileMenuCloseBtn" class="mobile-menu-close-btn" aria-label="Fechar Menu">
+          &times;
+        </button>
+      </div>
+
+      <div class="mobile-menu-body">
+        <div class="mobile-menu-section-label">Categorias Populares</div>
+        <ul class="mobile-menu-nav">
+          <li><a href="#/shop" class="mobile-menu-link active" data-cat="all"><span>Todos os Produtos</span> <span class="mobile-badge-pill">1.023</span></a></li>
+          <li><a href="#/shop" class="mobile-menu-link" data-cat="hormonio"><span>Hormônios & Landerlan</span></a></li>
+          <li><a href="#/shop" class="mobile-menu-link" data-cat="emagrecimento"><span>Emagrecimento & Peptídeos</span></a></li>
+          <li><a href="#/shop" class="mobile-menu-link" data-cat="whey"><span>Proteínas & Whey</span></a></li>
+          <li><a href="#/shop" class="mobile-menu-link" data-cat="creatina"><span>Creatina</span></a></li>
+          <li><a href="#/shop" class="mobile-menu-link" data-cat="pre-treino"><span>Pré-Treino</span></a></li>
+          <li><a href="#/shop" class="mobile-menu-link" data-cat="vitamina"><span>Vitaminas & Fitoterápicos</span></a></li>
+          <li><a href="#/shop" class="mobile-menu-link" data-cat="pasta-de-amendoim"><span>Pastas de Amendoim</span></a></li>
+        </ul>
+
+        <div class="mobile-menu-section-label">Ajuda & Institucional</div>
+        <ul class="mobile-menu-nav">
+          <li><a href="#/favoritos" class="mobile-menu-link" id="mobileMenuFavLink"><span>Meus Favoritos</span> <span class="wishlist-count-badge" style="font-size: 11px; opacity: 0.8;">(0)</span></a></li>
+          <li><a href="#/como-trabalhamos" class="mobile-menu-link"><span>Como Trabalhamos?</span></a></li>
+          <li><a href="#/localizacao" class="mobile-menu-link"><span>Nossa Localização</span></a></li>
+          <li><a href="#/contato" class="mobile-menu-link"><span>Fale Conosco</span></a></li>
+          <li><a href="#/termos-de-uso" class="mobile-menu-link"><span>Termos de Uso</span></a></li>
+          <li><a href="#/politica-de-devolucao" class="mobile-menu-link"><span>Política de Devolução</span></a></li>
+        </ul>
+
+        <div class="mobile-menu-contact-wrap">
+          <a href="https://wa.me/5545988085189" target="_blank" rel="noopener" class="mobile-menu-wa-action">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.043-1.077-.078-.501-.157-1.127-.417-1.926-.948-1.424-.949-2.348-2.39-2.457-2.534-.108-.145-.889-1.182-.889-2.256 0-1.073.563-1.603.762-1.821.199-.217.433-.271.578-.271.144 0 .289.002.415.008.134.006.314-.051.491.373.18.434.615 1.499.668 1.608.054.109.09.236.018.381-.073.145-.108.235-.217.362-.108.127-.228.283-.326.38-.108.109-.221.228-.095.445.127.217.562.927 1.208 1.503.832.742 1.533.971 1.75 1.079.217.109.344.091.471-.054.127-.145.543-.633.688-.851.144-.217.289-.181.488-.109.198.073 1.265.597 1.482.706.217.109.362.163.415.253.054.091.054.526-.09 1.079z"/></svg>
+            <span>Falar no WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ================= MOBILE APP-LIKE BOTTOM DOCK ================= -->
+  <nav class="mobile-bottom-nav-bar" id="mobileBottomBar" aria-label="Menu Rápido Mobile">
+    <a href="#/shop" class="mobile-bottom-item active" id="botNavShop">
+      <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+      <span>Loja</span>
+    </a>
+    <button type="button" class="mobile-bottom-item" id="botNavMenu">
+      <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <button type="button" class="mobile-bottom-item" id="botNavSearch">
+      <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      <span>Buscar</span>
+    </button>
+    <a href="#/favoritos" class="mobile-bottom-item" id="botNavFav">
+      <div class="mobile-bottom-badge-wrap">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+        <span class="mobile-bottom-badge wishlist-count-badge">0</span>
+      </div>
+      <span>Favoritos</span>
+    </a>
+    <button type="button" class="mobile-bottom-item btn-cart-toggle" id="botNavCart">
+      <div class="mobile-bottom-badge-wrap">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        <span class="mobile-bottom-badge cart-count-badge">0</span>
+      </div>
+      <span>Carrinho</span>
+    </button>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="js/products-data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

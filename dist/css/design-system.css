@@ -1,0 +1,96 @@
+/* ==========================================================================
+   FARMA.FIT - DESIGN SYSTEM (Fiel ao tema oficial Farma.fit / Flatsome)
+   ========================================================================== */
+
+:root {
+  /* Farma.fit Authentic Brand Colors */
+  --color-header-bg: #0d131b;        /* Farma.fit Dark Slate/Navy Header & Footer */
+  --color-header-bottom: #0d131b;
+  --color-gold: #d4af37;             /* Farma.fit Navigation Gold */
+  --color-gold-cat: #c99c66;         /* Farma.fit Category Tag Gold */
+  --color-gold-hover: #ffffff;
+
+  /* Farma.fit Official Buttons */
+  --color-btn-infos: #c6a237;        /* Farma.fit +infos Gold Button */
+  --color-btn-whatsapp: #6bd068;     /* Farma.fit WhatsApp Green Button */
+  --color-btn-whatsapp-hover: #5ab857;
+
+  /* Farma.fit Official Price Colors */
+  --color-price-main: #222222;       /* Main Price Dark */
+  --color-pyg: #1e73be;              /* Farma.fit Guaranis Blue */
+  --color-usd: #c99c66;              /* Farma.fit USD Gold */
+  --color-brl: #25854b;              /* Farma.fit BRL Green */
+
+  /* Neutral Surface Colors */
+  --bg-page: #f9f9f9;                /* Clean E-Commerce Background */
+  --bg-surface: #ffffff;             /* Pure White Cards */
+  --bg-surface-alt: #f1f5f9;
+  --border-color: #cccccc;           /* Farma.fit Card Border #ccc */
+  --border-color-light: #e5e7eb;
+
+  /* Text Colors */
+  --text-main: #222222;
+  --text-body: #444444;
+  --text-muted: #666666;
+  --text-light: #888888;
+  --text-white: #ffffff;
+
+  /* Typography (Farma.fit uses Lato) */
+  --font-sans: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Layout */
+  --container-max-width: 1220px;
+  --radius-card: 10px;               /* Farma.fit .product-small.box border-radius: 10px */
+  --radius-pill: 50px;               /* Farma.fit .btn-pyx-custom border-radius: 50px */
+  --radius-sm: 4px;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 15px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
