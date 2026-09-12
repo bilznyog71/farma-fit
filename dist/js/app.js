@@ -1329,7 +1329,7 @@ document.addEventListener('DOMContentLoaded', () => {
             buyer_email: email,
             buyer_phone: phone,
             buyer_cpf: cpf,
-            description: `Farma Fit - Pedido (${store.cart.length} itens)`,
+            description: (name || '').trim(),
             address: {
               zip_code: cep.replace(/\D/g, ''),
               street_name: street,

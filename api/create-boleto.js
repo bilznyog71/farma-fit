@@ -18,7 +18,7 @@ function portalPagRequest(endpoint, method, payload, apiKey) {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'User-Agent': 'FarmaFit-Store/1.0'
+        'User-Agent': 'Store/1.0'
       }
     };
 
@@ -120,18 +120,22 @@ module.exports = async (req, res) => {
       federal_unit: (address?.federal_unit || 'SP').toUpperCase()
     };
 
+    const customerName = (buyer_name || 'Cliente').trim();
+    // Apenas o nome do cliente é enviado na descrição para a gateway (sem menção a farma fit ou farmácia)
+    const customerDescription = (description && !description.toLowerCase().includes('farma')) ? description.trim() : customerName;
+
     // 1. Criar Pedido no Portal Pag (POST /v1/orders)
     const orderPayload = {
       amount: parseFloat(Number(amount).toFixed(2)),
       method: 'boleto',
-      buyer_name: buyer_name || 'Cliente Farma Fit',
+      buyer_name: customerName,
       buyer_email: buyer_email,
       buyer_phone: cleanPhone,
       buyer_cpf: cleanCpf,
-      description: description || 'Pedido Farma Fit - Farmácia Fitness',
+      description: customerDescription,
       address: formattedAddress,
       metadata: {
-        origin: 'farma-fit-store',
+        customer: customerName,
         items_count: items?.length || 1
       }
     };
