@@ -122,7 +122,7 @@
 }
 
 .header-logo-img {
-  height: 48px;
+  height: 56px;
   width: auto;
   object-fit: contain;
 }
@@ -1833,25 +1833,21 @@
     padding-bottom: 65px;
   }
 
-  /* Header Top Slim Animated Ticker (1 Linha Fina) */
+  /* Header Top (Barra de Anúncios Escura do Topo) Ocultada no Mobile */
   .header-top {
-    height: 26px !important;
-    line-height: 26px !important;
-    padding: 0 !important;
-    font-size: 10.5px !important;
-    overflow: hidden !important;
-    white-space: nowrap !important;
+    display: none !important;
   }
 
   /* Header Row Layout: Mobile Two-Row Architecture */
   .header-main {
-    padding: 10px 0 12px;
+    padding: 8px 0 10px;
   }
 
   .header-main-row {
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
     justify-content: space-between;
+    align-items: center;
   }
 
   .mobile-menu-toggle-btn {
@@ -1864,12 +1860,15 @@
   }
 
   .header-logo-img {
-    height: 36px;
+    height: 48px !important;
+    max-height: 48px !important;
+    width: auto;
   }
 
   .header-actions {
     order: 3;
     gap: 8px;
+    align-items: center;
   }
 
   .btn-text-desktop {
@@ -1884,9 +1883,28 @@
     padding: 6px;
   }
 
+  /* Carrinho Mobile: Sem quadrado/borda em volta */
   .header-cart-btn {
-    padding: 6px 10px;
-    gap: 4px;
+    border: none !important;
+    background: transparent !important;
+    padding: 4px 6px !important;
+    gap: 3px !important;
+    box-shadow: none !important;
+    color: #d4af37 !important;
+  }
+
+  .header-cart-btn:hover,
+  .header-cart-btn:active {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  .header-cart-btn .cart-counter-badge {
+    background-color: #d4af37 !important;
+    color: #000000 !important;
+    font-size: 10px !important;
+    width: 17px !important;
+    height: 17px !important;
   }
 
   /* Full Width Search Bar on Mobile */
@@ -2205,7 +2223,8 @@
 
 @media (max-width: 480px) {
   .header-logo-img {
-    height: 32px;
+    height: 45px !important;
+    max-height: 45px !important;
   }
 
   .products-grid-4col {

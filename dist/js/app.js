@@ -502,7 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortedBrands = Object.keys(uniqueBrandsMap).sort();
 
     const activeCatObj = data.categories.find(c => c.slug === state.selectedCategory);
-    const categoryTitle = state.selectedCategory === 'all' ? 'Loja Online' : (activeCatObj ? activeCatObj.name : 'Produtos');
+    const categoryTitle = state.selectedCategory === 'all' ? 'Catálogo Oficial Farma Fit' : (activeCatObj ? activeCatObj.name : 'Produtos');
 
     const getPaginationPages = (current, total) => {
       if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
@@ -527,7 +527,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="shop-title-wrap">
               <h1>${escapeHtml(categoryTitle)}</h1>
               <span class="shop-results-count">
-                Exibindo ${totalItems} produto(s)${state.searchQuery ? ` para "${escapeHtml(state.searchQuery)}"` : ''}
+                ${state.selectedCategory === 'all' && !state.searchQuery
+                  ? `Produtos 100% originais lacrados &bull; Envio seguro para todo o Brasil (${totalItems} itens disponíveis)`
+                  : `Exibindo ${totalItems} produto(s)${state.searchQuery ? ` para "${escapeHtml(state.searchQuery)}"` : ''}`}
               </span>
             </div>
 
@@ -965,7 +967,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <h3 style="font-size: 18px; margin-bottom: 8px;">Sua lista de favoritos está vazia</h3>
               <p style="color: #666; font-size: 14px; margin-bottom: 16px;">Navegue pelo catálogo e clique em +infos para conhecer nossos produtos.</p>
               <a href="#/shop" class="btn-proceed-checkout" style="display: inline-block; width: auto; padding: 0 24px; text-decoration: none; line-height: 44px;">
-                Ir para a Loja Online
+                Ir para o Catálogo
               </a>
             </div>
           ` : `
@@ -992,7 +994,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <h2 style="font-size: 20px; margin-bottom: 10px;">Seu carrinho está vazio</h2>
             <p style="color: #666; margin-bottom: 20px;">Adicione produtos antes de prosseguir com o pedido.</p>
             <a href="#/shop" class="btn-proceed-checkout" style="display: inline-block; width: auto; padding: 0 24px; text-decoration: none; line-height: 44px;">
-              Retornar à Loja Online
+              Retornar ao Catálogo
             </a>
           </div>
         </div>
