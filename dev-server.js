@@ -12,8 +12,30 @@ const mimeTypes = {
   '.svg': 'image/svg+xml'
 };
 
+const createBoletoHandler = require('./api/create-boleto.js');
+
 const server = http.createServer((req, res) => {
   let reqPath = req.url.split('?')[0];
+
+  // API Serverless Route Handler
+  if (reqPath === '/api/create-boleto') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      req.body = body ? JSON.parse(body) : {};
+      res.status = (code) => {
+        res.statusCode = code;
+        return res;
+      };
+      res.json = (data) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(data));
+      };
+      createBoletoHandler(req, res);
+    });
+    return;
+  }
+
   if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
   const filePath = path.join(__dirname, reqPath);
   

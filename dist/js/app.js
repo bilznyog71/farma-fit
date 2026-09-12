@@ -1015,23 +1015,37 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="checkout-grid">
             <!-- Form -->
             <div class="checkout-box">
-              <h2>Dados de Entrega</h2>
+              <h2>Dados do Cliente</h2>
               <form id="checkoutOrderForm">
+                <div id="checkoutErrorAlert" style="display: none;"></div>
+
                 <div class="form-row-2">
                   <div class="form-group">
                     <label class="form-label" for="custName">Nome Completo *</label>
                     <input type="text" id="custName" class="form-control" placeholder="Seu nome completo" required />
                   </div>
                   <div class="form-group">
-                    <label class="form-label" for="custPhone">WhatsApp com DDD (Brasil) *</label>
-                    <input type="tel" id="custPhone" class="form-control" placeholder="(11) 99999-9999" required />
+                    <label class="form-label" for="custEmail">E-mail (Para envio do Boleto/Rastreio) *</label>
+                    <input type="email" id="custEmail" class="form-control" placeholder="seu@email.com" required />
                   </div>
                 </div>
 
                 <div class="form-row-2">
                   <div class="form-group">
-                    <label class="form-label" for="custCpf">CPF (Para trânsito fiscal) *</label>
-                    <input type="text" id="custCpf" class="form-control" placeholder="000.000.000-00" required />
+                    <label class="form-label" for="custPhone">WhatsApp com DDD (Brasil) *</label>
+                    <input type="tel" id="custPhone" class="form-control" placeholder="(11) 99999-9999" required />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="custCpf">CPF (Obrigatório para Boleto e Envio) *</label>
+                    <input type="text" id="custCpf" class="form-control" placeholder="000.000.000-00" maxlength="14" required />
+                  </div>
+                </div>
+
+                <h2 style="margin-top: 24px;">Endereço de Entrega no Brasil</h2>
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label class="form-label" for="custCep">CEP * <span id="cepLoading" style="font-size: 11px; color: #d4af37; font-weight: normal; display: none;">(Buscando endereço...)</span></label>
+                    <input type="text" id="custCep" class="form-control" placeholder="00000-000" maxlength="9" required />
                   </div>
                   <div class="form-group">
                     <label class="form-label" for="custDelivery">Modalidade de Envio *</label>
@@ -1043,55 +1057,80 @@ document.addEventListener('DOMContentLoaded', () => {
                   </div>
                 </div>
 
-                <h2 style="margin-top: 20px;">Endereço no Brasil</h2>
                 <div class="form-row-2">
-                  <div class="form-group">
-                    <label class="form-label" for="custCep">CEP *</label>
-                    <input type="text" id="custCep" class="form-control" placeholder="00000-000" maxlength="9" required />
+                  <div class="form-group" style="grid-column: span 1;">
+                    <label class="form-label" for="custStreet">Rua / Logradouro *</label>
+                    <input type="text" id="custStreet" class="form-control" placeholder="Ex: Av. Paulista" required />
                   </div>
-                  <div class="form-group">
-                    <label class="form-label" for="custCity">Cidade / Estado (UF) *</label>
-                    <input type="text" id="custCity" class="form-control" placeholder="Ex: São Paulo / SP" required />
+                  <div class="form-group" style="grid-column: span 1;">
+                    <label class="form-label" for="custNumber">Número *</label>
+                    <input type="text" id="custNumber" class="form-control" placeholder="123" required />
                   </div>
                 </div>
 
                 <div class="form-row-2">
                   <div class="form-group">
-                    <label class="form-label" for="custAddress">Rua / Avenida e Número *</label>
-                    <input type="text" id="custAddress" class="form-control" placeholder="Rua das Flores, 123" required />
+                    <label class="form-label" for="custNeighborhood">Bairro *</label>
+                    <input type="text" id="custNeighborhood" class="form-control" placeholder="Bairro" required />
                   </div>
                   <div class="form-group">
-                    <label class="form-label" for="custComplement">Bairro e Complemento</label>
-                    <input type="text" id="custComplement" class="form-control" placeholder="Apto 42, Bloco B" />
+                    <label class="form-label" for="custComplement">Complemento</label>
+                    <input type="text" id="custComplement" class="form-control" placeholder="Apto, Bloco, etc." />
                   </div>
                 </div>
 
-                <h2 style="margin-top: 20px;">Forma de Pagamento em Reais</h2>
-                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
-                  <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; background: #ffffff;">
-                    <input type="radio" name="payMethod" value="Cartão de Crédito em até 12x" checked />
-                    <div>
-                      <strong>💳 Cartão de Crédito em até 12x</strong>
-                      <div style="font-size: 12px; color: #64748b;">Visa, Mastercard, Elo, Hipercard e American Express</div>
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label class="form-label" for="custCity">Cidade *</label>
+                    <input type="text" id="custCity" class="form-control" placeholder="Cidade" required />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="custState">Estado (UF) *</label>
+                    <input type="text" id="custState" class="form-control" placeholder="Ex: SP" maxlength="2" style="text-transform: uppercase;" required />
+                  </div>
+                </div>
+
+                <h2 style="margin-top: 24px;">Forma de Pagamento</h2>
+                <div style="margin-bottom: 20px;">
+                  <label class="pay-option-card selected" id="optCardWrapper">
+                    <input type="radio" name="payMethod" value="cartao" checked />
+                    <div style="flex: 1;">
+                      <div style="font-weight: 700; color: #0f172a; display: flex; align-items: center; justify-content: space-between;">
+                        <span>💳 Cartão de Crédito em até 12x</span>
+                        <span class="pay-option-badge green">Via WhatsApp</span>
+                      </div>
+                      <div style="font-size: 12.5px; color: #64748b; margin-top: 4px;">
+                        Visa, Mastercard, Elo, Hipercard e Amex. Finalização rápida pelo WhatsApp com link seguro.
+                      </div>
                     </div>
                   </label>
-                  <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; background: #ffffff;">
-                    <input type="radio" name="payMethod" value="Boleto Bancário" />
-                    <div>
-                      <strong>📄 Boleto Bancário</strong>
-                      <div style="font-size: 12px; color: #64748b;">Pagamento à vista com compensação bancária</div>
+
+                  <label class="pay-option-card" id="optBoletoWrapper">
+                    <input type="radio" name="payMethod" value="boleto" />
+                    <div style="flex: 1;">
+                      <div style="font-weight: 700; color: #0f172a; display: flex; align-items: center; justify-content: space-between;">
+                        <span>📄 Boleto Bancário (Portal Pag)</span>
+                        <span class="pay-option-badge gold">Geração Direta no Site</span>
+                      </div>
+                      <div style="font-size: 12.5px; color: #64748b; margin-top: 4px;">
+                        Gere o boleto oficial instantaneamente com código de barras e PDF para pagar em qualquer banco.
+                      </div>
                     </div>
                   </label>
                 </div>
 
                 <div class="form-group">
-                  <label class="form-label" for="custObs">Observações do Pedido</label>
-                  <textarea id="custObs" class="form-control" rows="2" style="height: auto;" placeholder="Instruções de entrega ou referências..."></textarea>
+                  <label class="form-label" for="custObs">Observações do Pedido (Opcional)</label>
+                  <textarea id="custObs" class="form-control" rows="2" style="height: auto;" placeholder="Instruções adicionais de entrega ou referências..."></textarea>
                 </div>
 
-                <button type="submit" class="btn-proceed-checkout" style="margin-top: 15px;">
-                  Gerar Pedido no WhatsApp Oficial
+                <button type="submit" id="checkoutSubmitBtn" class="btn-proceed-checkout" style="background-color: #25D366; color: #ffffff; margin-top: 15px;">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.043-1.077-.078-.501-.157-1.127-.417-1.926-.948-1.424-.949-2.348-2.39-2.457-2.534-.108-.145-.889-1.182-.889-2.256 0-1.073.563-1.603.762-1.821.199-.217.433-.271.578-.271.144 0 .289.002.415.008.134.006.314-.051.491.373.18.434.615 1.499.668 1.608.054.109.09.236.018.381-.073.145-.108.235-.217.362-.108.127-.228.283-.326.38-.108.109-.221.228-.095.445.127.217.562.927 1.208 1.503.832.742 1.533.971 1.75 1.079.217.109.344.091.471-.054.127-.145.543-.633.688-.851.144-.217.289-.181.488-.109.198.073 1.265.597 1.482.706.217.109.362.163.415.253.054.091.054.526-.09 1.079z"/></svg>
+                  <span>Finalizar no Cartão via WhatsApp</span>
                 </button>
+                <div id="checkoutHelpText" style="font-size: 12px; color: #64748b; text-align: center; margin-top: 8px;">
+                  Seus dados e pedido serão enviados formatados ao nosso WhatsApp oficial para emissão do link seguro em até 12x.
+                </div>
               </form>
             </div>
 
@@ -1128,23 +1167,341 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
 
-    document.getElementById('checkoutOrderForm').addEventListener('submit', (e) => {
+    // Radio button changes to toggle visual styles & button behavior
+    const optCardWrapper = document.getElementById('optCardWrapper');
+    const optBoletoWrapper = document.getElementById('optBoletoWrapper');
+    const submitBtn = document.getElementById('checkoutSubmitBtn');
+    const helpText = document.getElementById('checkoutHelpText');
+    const payRadios = document.querySelectorAll('input[name="payMethod"]');
+
+    payRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.value === 'cartao') {
+          optCardWrapper?.classList.add('selected');
+          optBoletoWrapper?.classList.remove('selected');
+          if (submitBtn) {
+            submitBtn.style.backgroundColor = '#25D366';
+            submitBtn.style.color = '#ffffff';
+            submitBtn.innerHTML = `
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.043-1.077-.078-.501-.157-1.127-.417-1.926-.948-1.424-.949-2.348-2.39-2.457-2.534-.108-.145-.889-1.182-.889-2.256 0-1.073.563-1.603.762-1.821.199-.217.433-.271.578-.271.144 0 .289.002.415.008.134.006.314-.051.491.373.18.434.615 1.499.668 1.608.054.109.09.236.018.381-.073.145-.108.235-.217.362-.108.127-.228.283-.326.38-.108.109-.221.228-.095.445.127.217.562.927 1.208 1.503.832.742 1.533.971 1.75 1.079.217.109.344.091.471-.054.127-.145.543-.633.688-.851.144-.217.289-.181.488-.109.198.073 1.265.597 1.482.706.217.109.362.163.415.253.054.091.054.526-.09 1.079z"/></svg>
+              <span>Finalizar no Cartão via WhatsApp</span>
+            `;
+          }
+          if (helpText) {
+            helpText.textContent = 'Seus dados e pedido serão enviados formatados ao nosso WhatsApp oficial para emissão do link seguro em até 12x.';
+          }
+        } else {
+          optBoletoWrapper?.classList.add('selected');
+          optCardWrapper?.classList.remove('selected');
+          if (submitBtn) {
+            submitBtn.style.backgroundColor = '#d4af37';
+            submitBtn.style.color = '#000000';
+            submitBtn.innerHTML = `
+              <svg width="19" height="19" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span>Gerar Boleto Bancário Oficial</span>
+            `;
+          }
+          if (helpText) {
+            helpText.textContent = 'Geração do boleto bancário diretamente na tela através do gateway Portal Pag com código de barras e link em PDF.';
+          }
+        }
+      });
+    });
+
+    // ViaCEP auto-complete on CEP input
+    const cepInput = document.getElementById('custCep');
+    const cepLoading = document.getElementById('cepLoading');
+    if (cepInput) {
+      cepInput.addEventListener('input', async (e) => {
+        let val = e.target.value.replace(/\D/g, '');
+        if (val.length > 5) {
+          e.target.value = val.slice(0, 5) + '-' + val.slice(5, 8);
+        } else {
+          e.target.value = val;
+        }
+
+        if (val.length === 8) {
+          if (cepLoading) cepLoading.style.display = 'inline';
+          try {
+            const cepRes = await fetch(`https://viacep.com.br/ws/${val}/json/`);
+            const cepData = await cepRes.json();
+            if (!cepData.erro) {
+              if (document.getElementById('custStreet')) document.getElementById('custStreet').value = cepData.logradouro || '';
+              if (document.getElementById('custNeighborhood')) document.getElementById('custNeighborhood').value = cepData.bairro || '';
+              if (document.getElementById('custCity')) document.getElementById('custCity').value = cepData.localidade || '';
+              if (document.getElementById('custState')) document.getElementById('custState').value = cepData.uf || '';
+              document.getElementById('custNumber')?.focus();
+            }
+          } catch (err) {
+            console.error('Erro ViaCEP:', err);
+          } finally {
+            if (cepLoading) cepLoading.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    // CPF automatic mask
+    const cpfInput = document.getElementById('custCpf');
+    if (cpfInput) {
+      cpfInput.addEventListener('input', (e) => {
+        let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+        if (v.length > 9) {
+          v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+        } else if (v.length > 6) {
+          v = v.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+        } else if (v.length > 3) {
+          v = v.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+        }
+        e.target.value = v;
+      });
+    }
+
+    // Form Submission: Credit Card via WhatsApp OR Direct Boleto via Portal Pag API
+    document.getElementById('checkoutOrderForm').addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      const name = document.getElementById('custName').value.trim();
+      const email = document.getElementById('custEmail').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const cpf = document.getElementById('custCpf').value.trim();
+      const cep = document.getElementById('custCep').value.trim();
+      const street = document.getElementById('custStreet').value.trim();
+      const number = document.getElementById('custNumber').value.trim();
+      const neighborhood = document.getElementById('custNeighborhood').value.trim();
+      const complement = document.getElementById('custComplement').value.trim();
+      const city = document.getElementById('custCity').value.trim();
+      const state = (document.getElementById('custState').value.trim() || 'SP').toUpperCase();
+      const deliveryType = document.getElementById('custDelivery').value;
+      const obs = document.getElementById('custObs').value.trim();
+      const selectedMethod = document.querySelector('input[name="payMethod"]:checked')?.value || 'cartao';
+
+      const fullAddress = `${street}, ${number}${complement ? ' - ' + complement : ''} - ${neighborhood}`;
+
       const customer = {
-        name: document.getElementById('custName').value.trim(),
-        phone: document.getElementById('custPhone').value.trim(),
-        cpf: document.getElementById('custCpf').value.trim(),
-        cep: document.getElementById('custCep').value.trim(),
-        city: document.getElementById('custCity').value.trim(),
-        address: `${document.getElementById('custAddress').value.trim()} - ${document.getElementById('custComplement').value.trim()}`,
-        deliveryType: document.getElementById('custDelivery').value,
-        payment: document.querySelector('input[name="payMethod"]:checked')?.value || 'Cartão de Crédito em até 12x',
-        obs: document.getElementById('custObs').value.trim()
+        name,
+        email,
+        phone,
+        cpf,
+        cep,
+        street,
+        number,
+        neighborhood,
+        complement,
+        city,
+        state,
+        address: fullAddress,
+        deliveryType,
+        payment: selectedMethod === 'cartao' ? 'Cartão de Crédito em até 12x' : 'Boleto Bancário (Portal Pag)',
+        obs
       };
 
-      const waUrl = store.getWhatsAppOrderUrl(customer);
-      window.open(waUrl, '_blank');
+      const errorAlert = document.getElementById('checkoutErrorAlert');
+      if (errorAlert) {
+        errorAlert.style.display = 'none';
+        errorAlert.innerHTML = '';
+      }
+
+      // ---------------- OPÇÃO 1: CARTÃO DE CRÉDITO VIA WHATSAPP ----------------
+      if (selectedMethod === 'cartao') {
+        const waUrl = store.getWhatsAppOrderUrl(customer);
+        window.open(waUrl, '_blank');
+        store.showToast('Redirecionando para o WhatsApp oficial com o pedido formatado!', 'success');
+        return;
+      }
+
+      // ---------------- OPÇÃO 2: BOLETO BANCÁRIO VIA API PORTAL PAG ----------------
+      if (selectedMethod === 'boleto') {
+        const submitBtn = document.getElementById('checkoutSubmitBtn');
+        const originalBtnHtml = submitBtn.innerHTML;
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<span class="checkout-spinner"></span> Gerando Boleto no Portal Pag...`;
+
+        try {
+          // Calcular valor em R$
+          const totalBrlStr = store.getCartTotalBRL();
+          const amountNum = parseFloat(totalBrlStr.replace(/\./g, '').replace(',', '.'));
+
+          const boletoPayload = {
+            amount: amountNum,
+            buyer_name: name,
+            buyer_email: email,
+            buyer_phone: phone,
+            buyer_cpf: cpf,
+            description: `Farma Fit - Pedido (${store.cart.length} itens)`,
+            address: {
+              zip_code: cep.replace(/\D/g, ''),
+              street_name: street,
+              street_number: number,
+              neighborhood: neighborhood,
+              city: city,
+              federal_unit: state
+            },
+            items: store.cart.map(i => ({
+              name: i.product.name,
+              qty: i.qty,
+              price: (i.product.price_usd * store.rates.USD_TO_BRL).toFixed(2)
+            }))
+          };
+
+          const response = await fetch('/api/create-boleto', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(boletoPayload)
+          });
+
+          const resData = await response.json();
+
+          if (!response.ok || !resData.success) {
+            throw new Error(resData.error || 'Não foi possível gerar o boleto no Portal Pag.');
+          }
+
+          // Sucesso! Renderizar a tela de Boleto
+          renderBoletoSuccessView(resData, customer, totalBrlStr);
+          
+          // Limpar carrinho
+          store.cart = [];
+          store.saveCart();
+          store.notify();
+
+        } catch (err) {
+          console.error('[Checkout] Erro ao gerar boleto:', err);
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHtml;
+
+          if (errorAlert) {
+            errorAlert.className = 'checkout-error-alert';
+            errorAlert.style.display = 'flex';
+            errorAlert.innerHTML = `
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="flex-shrink: 0;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <div>
+                <strong>Atenção:</strong> ${escapeHtml(err.message)}
+                <div style="margin-top: 8px;">
+                  <button type="button" id="fallbackWaBtn" style="background: #25D366; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 12px;">
+                    💬 Finalizar Pedido com Atendente no WhatsApp
+                  </button>
+                </div>
+              </div>
+            `;
+
+            document.getElementById('fallbackWaBtn')?.addEventListener('click', () => {
+              const waUrl = store.getWhatsAppOrderUrl(customer);
+              window.open(waUrl, '_blank');
+            });
+          }
+
+          store.showToast('Erro ao emitir boleto bancário. Verifique os dados ou chame no WhatsApp.', 'error');
+        }
+      }
     });
+  }
+
+  // ----------------- TELA DE SUCESSO DO BOLETO PORTAL PAG -----------------
+  function renderBoletoSuccessView(boletoData, customer, totalBrlStr) {
+    const appContainer = document.getElementById('appContainer');
+    if (!appContainer) return;
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const orderId = boletoData.order_id ? String(boletoData.order_id).slice(0, 8).toUpperCase() : 'FIT-' + Date.now().toString().slice(-6);
+    const barcode = boletoData.boleto_barcode || '';
+    const boletoUrl = boletoData.boleto_url || '#';
+    const waUrl = store.getWhatsAppOrderUrl(customer);
+
+    appContainer.innerHTML = `
+      <div class="shop-page-wrapper">
+        <div class="container" style="max-width: 720px; padding: 30px 15px 60px;">
+          
+          <div class="boleto-success-card">
+            <div class="boleto-success-icon">
+              <svg width="34" height="34" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+
+            <h1 class="boleto-success-title">Boleto Bancário Gerado!</h1>
+            <p class="boleto-success-sub">Seu pedido <strong>#${escapeHtml(orderId)}</strong> foi registrado com sucesso na Farma Fit.</p>
+
+            <div class="boleto-amount-banner">
+              <span class="label">Valor Total do Boleto:</span>
+              <span class="value">R$ ${escapeHtml(totalBrlStr)}</span>
+            </div>
+
+            ${barcode ? `
+              <div class="boleto-barcode-box">
+                <div class="boleto-barcode-label">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                  <span>Linha Digitável / Código de Barras:</span>
+                </div>
+                <div class="barcode-copy-row">
+                  <input type="text" id="barcodeInput" class="barcode-input" value="${escapeHtml(barcode)}" readonly />
+                  <button type="button" id="copyBarcodeBtn" class="btn-copy-barcode">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    <span>Copiar Código</span>
+                  </button>
+                </div>
+              </div>
+            ` : ''}
+
+            <div class="boleto-actions">
+              ${boletoUrl && boletoUrl !== '#' ? `
+                <a href="${escapeHtml(boletoUrl)}" target="_blank" rel="noopener" class="btn-view-pdf">
+                  <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                  <span>Visualizar / Imprimir Boleto (PDF)</span>
+                </a>
+              ` : ''}
+
+              <a href="${escapeHtml(waUrl)}" target="_blank" rel="noopener" class="btn-wa-notify">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.043-1.077-.078-.501-.157-1.127-.417-1.926-.948-1.424-.949-2.348-2.39-2.457-2.534-.108-.145-.889-1.182-.889-2.256 0-1.073.563-1.603.762-1.821.199-.217.433-.271.578-.271.144 0 .289.002.415.008.134.006.314-.051.491.373.18.434.615 1.499.668 1.608.054.109.09.236.018.381-.073.145-.108.235-.217.362-.108.127-.228.283-.326.38-.108.109-.221.228-.095.445.127.217.562.927 1.208 1.503.832.742 1.533.971 1.75 1.079.217.109.344.091.471-.054.127-.145.543-.633.688-.851.144-.217.289-.181.488-.109.198.073 1.265.597 1.482.706.217.109.362.163.415.253.054.091.054.526-.09 1.079z"/></svg>
+                <span>Enviar Comprovante / Acompanhar no WhatsApp</span>
+              </a>
+            </div>
+
+            <div class="boleto-notice-alert">
+              <strong>Como pagar seu boleto bancário:</strong>
+              <ul style="margin: 6px 0 0 16px; padding: 0;">
+                <li>Copie o código acima e pague no internet banking ou app do seu banco favorito.</li>
+                <li>Você também pode imprimir ou salvar o PDF para pagar em agências e lotéricas.</li>
+                <li>A compensação ocorre normalmente em 1 a 2 dias úteis.</li>
+                <li>Assim que compensado, seu pedido será postado com seguro e código de rastreamento.</li>
+              </ul>
+            </div>
+
+            <div style="margin-top: 24px;">
+              <a href="#/shop" class="cat-crumb" style="color: #64748b; font-size: 13px; text-decoration: underline;">
+                &larr; Voltar para o Catálogo Farma Fit
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    `;
+
+    // Copy Barcode Button
+    const copyBtn = document.getElementById('copyBarcodeBtn');
+    const barcodeInput = document.getElementById('barcodeInput');
+    if (copyBtn && barcodeInput) {
+      copyBtn.addEventListener('click', () => {
+        barcodeInput.select();
+        navigator.clipboard.writeText(barcodeInput.value).then(() => {
+          copyBtn.classList.add('copied');
+          copyBtn.innerHTML = `
+            <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            <span>Copiado!</span>
+          `;
+          setTimeout(() => {
+            copyBtn.classList.remove('copied');
+            copyBtn.innerHTML = `
+              <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <span>Copiar Código</span>
+            `;
+          }, 2500);
+        });
+      });
+    }
   }
 
   // ----------------- CART DRAWER -----------------
