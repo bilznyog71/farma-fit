@@ -920,12 +920,12 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsBox.innerHTML = `
           <div style="padding: 10px; background: #fff; border: 1px solid #e2e8f0; border-radius: 4px; margin-top: 6px;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-              <span><strong>Dialog (Expresso Brasil):</strong> 2 a 4 dias úteis</span>
-              <span style="font-weight: 700; color: #128c4a;">R$ 38,00</span>
+              <span><strong>Dialog (Expresso Brasil):</strong> 7 a 10 dias úteis</span>
+              <span style="font-weight: 700; color: #128c4a;">R$ 49,00</span>
             </div>
             <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-              <span><strong>JadLog (Econômico Brasil):</strong> 5 a 8 dias úteis</span>
-              <span style="font-weight: 700;">R$ 24,00</span>
+              <span><strong>JadLog (Econômico Brasil):</strong> 10 a 14 dias úteis</span>
+              <span style="font-weight: 700;">R$ 29,90</span>
             </div>
             <div style="display: flex; justify-content: space-between;">
               <span><strong>Retirada no Jebai Center:</strong> Loja 2208</span>
@@ -1050,8 +1050,8 @@ document.addEventListener('DOMContentLoaded', () => {
                   <div class="form-group">
                     <label class="form-label" for="custDelivery">Modalidade de Envio *</label>
                     <select id="custDelivery" class="form-control" required>
-                      <option value="Dialog Expresso Brasil (2 a 4 dias úteis - R$ 38,00)">Dialog Expresso Brasil (2 a 4 dias úteis - R$ 38,00)</option>
-                      <option value="JadLog Econômico Brasil (5 a 8 dias úteis - R$ 24,00)">JadLog Econômico Brasil (5 a 8 dias úteis - R$ 24,00)</option>
+                      <option value="Dialog Expresso Brasil (7 a 10 dias úteis - R$ 49,00)">Dialog Expresso Brasil (7 a 10 dias úteis - R$ 49,00)</option>
+                      <option value="JadLog Econômico Brasil (10 a 14 dias úteis - R$ 29,90)">JadLog Econômico Brasil (10 a 14 dias úteis - R$ 29,90)</option>
                       <option value="Retirada na Loja Física (Jebai Center, Piso 3, Loja 2208)">Retirada na Loja Física (Jebai Center, CDE - Grátis)</option>
                     </select>
                   </div>
@@ -1097,10 +1097,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div style="flex: 1;">
                       <div style="font-weight: 700; color: #0f172a; display: flex; align-items: center; justify-content: space-between;">
                         <span>💳 Cartão de Crédito em até 12x</span>
-                        <span class="pay-option-badge green">Via WhatsApp</span>
                       </div>
                       <div style="font-size: 12.5px; color: #64748b; margin-top: 4px;">
-                        Visa, Mastercard, Elo, Hipercard e Amex. Finalização rápida pelo WhatsApp com link seguro.
+                        Visa, Mastercard, Elo, Hipercard e Amex. Finalização com suporte para emissão de link seguro.
                       </div>
                     </div>
                   </label>
@@ -1109,11 +1108,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <input type="radio" name="payMethod" value="boleto" />
                     <div style="flex: 1;">
                       <div style="font-weight: 700; color: #0f172a; display: flex; align-items: center; justify-content: space-between;">
-                        <span>📄 Boleto Bancário (Portal Pag)</span>
-                        <span class="pay-option-badge gold">Geração Direta no Site</span>
+                        <span>📄 Boleto Bancário</span>
                       </div>
                       <div style="font-size: 12.5px; color: #64748b; margin-top: 4px;">
-                        Gere o boleto oficial instantaneamente com código de barras e PDF para pagar em qualquer banco.
+                        Emissão oficial instantânea com código de barras e link em PDF para pagar em qualquer banco.
                       </div>
                     </div>
                   </label>
@@ -1126,10 +1124,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 <button type="submit" id="checkoutSubmitBtn" class="btn-proceed-checkout" style="background-color: #25D366; color: #ffffff; margin-top: 15px;">
                   <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.043-1.077-.078-.501-.157-1.127-.417-1.926-.948-1.424-.949-2.348-2.39-2.457-2.534-.108-.145-.889-1.182-.889-2.256 0-1.073.563-1.603.762-1.821.199-.217.433-.271.578-.271.144 0 .289.002.415.008.134.006.314-.051.491.373.18.434.615 1.499.668 1.608.054.109.09.236.018.381-.073.145-.108.235-.217.362-.108.127-.228.283-.326.38-.108.109-.221.228-.095.445.127.217.562.927 1.208 1.503.832.742 1.533.971 1.75 1.079.217.109.344.091.471-.054.127-.145.543-.633.688-.851.144-.217.289-.181.488-.109.198.073 1.265.597 1.482.706.217.109.362.163.415.253.054.091.054.526-.09 1.079z"/></svg>
-                  <span>Finalizar no Cartão via WhatsApp</span>
+                  <span>Finalizar Pedido no Cartão</span>
                 </button>
                 <div id="checkoutHelpText" style="font-size: 12px; color: #64748b; text-align: center; margin-top: 8px;">
-                  Seus dados e pedido serão enviados formatados ao nosso WhatsApp oficial para emissão do link seguro em até 12x.
+                  Seus dados e pedido serão direcionados para atendimento seguro e envio do link de pagamento em até 12x.
                 </div>
               </form>
             </div>
@@ -1184,25 +1182,25 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.style.color = '#ffffff';
             submitBtn.innerHTML = `
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.043-1.077-.078-.501-.157-1.127-.417-1.926-.948-1.424-.949-2.348-2.39-2.457-2.534-.108-.145-.889-1.182-.889-2.256 0-1.073.563-1.603.762-1.821.199-.217.433-.271.578-.271.144 0 .289.002.415.008.134.006.314-.051.491.373.18.434.615 1.499.668 1.608.054.109.09.236.018.381-.073.145-.108.235-.217.362-.108.127-.228.283-.326.38-.108.109-.221.228-.095.445.127.217.562.927 1.208 1.503.832.742 1.533.971 1.75 1.079.217.109.344.091.471-.054.127-.145.543-.633.688-.851.144-.217.289-.181.488-.109.198.073 1.265.597 1.482.706.217.109.362.163.415.253.054.091.054.526-.09 1.079z"/></svg>
-              <span>Finalizar no Cartão via WhatsApp</span>
+              <span>Finalizar Pedido no Cartão</span>
             `;
           }
           if (helpText) {
-            helpText.textContent = 'Seus dados e pedido serão enviados formatados ao nosso WhatsApp oficial para emissão do link seguro em até 12x.';
+            helpText.textContent = 'Seus dados e pedido serão direcionados para atendimento seguro e envio do link de pagamento em até 12x.';
           }
         } else {
           optBoletoWrapper?.classList.add('selected');
           optCardWrapper?.classList.remove('selected');
           if (submitBtn) {
-            submitBtn.style.backgroundColor = '#d4af37';
-            submitBtn.style.color = '#000000';
+            submitBtn.style.backgroundColor = '#0f172a';
+            submitBtn.style.color = '#ffffff';
             submitBtn.innerHTML = `
               <svg width="19" height="19" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-              <span>Gerar Boleto Bancário Oficial</span>
+              <span>Gerar Boleto Bancário</span>
             `;
           }
           if (helpText) {
-            helpText.textContent = 'Geração do boleto bancário diretamente na tela através do gateway Portal Pag com código de barras e link em PDF.';
+            helpText.textContent = 'Emissão oficial instantânea com código de barras e link em PDF para pagar em qualquer banco.';
           }
         }
       });
@@ -1257,7 +1255,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Form Submission: Credit Card via WhatsApp OR Direct Boleto via Portal Pag API
+    // Form Submission: Credit Card OR Direct Boleto API
     document.getElementById('checkoutOrderForm').addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -1295,7 +1293,7 @@ document.addEventListener('DOMContentLoaded', () => {
         state,
         address: fullAddress,
         deliveryType,
-        payment: selectedMethod === 'cartao' ? 'Cartão de Crédito em até 12x' : 'Boleto Bancário (Portal Pag)',
+        payment: selectedMethod === 'cartao' ? 'Cartão de Crédito em até 12x' : 'Boleto Bancário',
         obs,
         order_number: orderNumber,
         order_code: orderCode
@@ -1315,13 +1313,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // ---------------- OPÇÃO 2: BOLETO BANCÁRIO VIA API PORTAL PAG ----------------
+      // ---------------- OPÇÃO 2: BOLETO BANCÁRIO ----------------
       if (selectedMethod === 'boleto') {
         const submitBtn = document.getElementById('checkoutSubmitBtn');
         const originalBtnHtml = submitBtn.innerHTML;
 
         submitBtn.disabled = true;
-        submitBtn.innerHTML = `<span class="checkout-spinner"></span> Gerando Boleto no Portal Pag...`;
+        submitBtn.innerHTML = `<span class="checkout-spinner"></span> Gerando Boleto Bancário...`;
 
         try {
           // Calcular valor em R$
@@ -1362,7 +1360,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const resData = await response.json();
 
           if (!response.ok || !resData.success) {
-            throw new Error(resData.error || 'Não foi possível gerar o boleto no Portal Pag.');
+            throw new Error(resData.error || 'Não foi possível emitir o boleto bancário.');
           }
 
           // Sucesso! Renderizar a tela de Boleto
@@ -1399,25 +1397,39 @@ document.addEventListener('DOMContentLoaded', () => {
             });
           }
 
-          store.showToast('Erro ao emitir boleto bancário. Verifique os dados ou chame no WhatsApp.', 'error');
+          store.showToast('Erro ao emitir boleto bancário. Verifique os dados ou contate o suporte.', 'error');
         }
       }
     });
   }
 
-  // ----------------- TELA DE SUCESSO DO BOLETO PORTAL PAG -----------------
+  // ----------------- TELA DE SUCESSO DO BOLETO BANCÁRIO -----------------
   function renderBoletoSuccessView(boletoData, customer, totalBrlStr) {
-    const appContainer = document.getElementById('appContainer');
-    if (!appContainer) return;
+    const targetEl = document.getElementById('app') || appContainer;
+    if (!targetEl) return;
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
+    const orderNum = boletoData.order_number || (customer?.order_number || '1003');
     const displayOrder = boletoData.order_code || (boletoData.order_number ? `Pedido #${boletoData.order_number}` : (customer?.order_code || '#1001'));
     const barcode = boletoData.boleto_barcode || '';
-    const boletoUrl = boletoData.boleto_url || '#';
+    const customBoletoUrl = `boleto.html?order=${encodeURIComponent(orderNum)}&total=${encodeURIComponent(totalBrlStr)}&name=${encodeURIComponent(customer.name || '')}&cpf=${encodeURIComponent(customer.cpf || '')}&barcode=${encodeURIComponent(barcode)}`;
     const waUrl = store.getWhatsAppOrderUrl(customer);
 
-    appContainer.innerHTML = `
+    // Salvar no localStorage para persistência completa do documento oficial Farma Fit
+    try {
+      localStorage.setItem('farma_fit_current_boleto', JSON.stringify({
+        order_number: orderNum,
+        order_code: displayOrder,
+        total_brl: totalBrlStr,
+        amount: boletoData.amount,
+        boleto_barcode: barcode,
+        due_date: boletoData.due_date,
+        customer: customer
+      }));
+    } catch (e) {}
+
+    targetEl.innerHTML = `
       <div class="shop-page-wrapper">
         <div class="container" style="max-width: 720px; padding: 30px 15px 60px;">
           
@@ -1451,12 +1463,10 @@ document.addEventListener('DOMContentLoaded', () => {
             ` : ''}
 
             <div class="boleto-actions">
-              ${boletoUrl && boletoUrl !== '#' ? `
-                <a href="${escapeHtml(boletoUrl)}" target="_blank" rel="noopener" class="btn-view-pdf">
-                  <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                  <span>Visualizar / Imprimir Boleto (PDF)</span>
-                </a>
-              ` : ''}
+              <a href="${escapeHtml(customBoletoUrl)}" target="_blank" rel="noopener" class="btn-view-pdf">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                <span>Visualizar / Imprimir Boleto Oficial Farma Fit</span>
+              </a>
 
               <a href="${escapeHtml(waUrl)}" target="_blank" rel="noopener" class="btn-wa-notify">
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.043-1.077-.078-.501-.157-1.127-.417-1.926-.948-1.424-.949-2.348-2.39-2.457-2.534-.108-.145-.889-1.182-.889-2.256 0-1.073.563-1.603.762-1.821.199-.217.433-.271.578-.271.144 0 .289.002.415.008.134.006.314-.051.491.373.18.434.615 1.499.668 1.608.054.109.09.236.018.381-.073.145-.108.235-.217.362-.108.127-.228.283-.326.38-.108.109-.221.228-.095.445.127.217.562.927 1.208 1.503.832.742 1.533.971 1.75 1.079.217.109.344.091.471-.054.127-.145.543-.633.688-.851.144-.217.289-.181.488-.109.198.073 1.265.597 1.482.706.217.109.362.163.415.253.054.091.054.526-.09 1.079z"/></svg>
@@ -1694,7 +1704,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <div style="margin: 20px 0;">
             <p><strong>WhatsApp Oficial:</strong> <a href="https://wa.me/5545988085189" target="_blank" rel="noopener" style="color: #128c4a; font-weight: 700; font-size: 16px;">+55 45 98808-5189</a></p>
             <p><strong>Telefone:</strong> +55 45 98808-5189</p>
-            <p><strong>E-mail:</strong> <a href="mailto:contato@farmafit.com" style="color: #222; text-decoration: underline;">contato@farmafit.com</a></p>
+            <p><strong>E-mail:</strong> <a href="mailto:contato@farmaciafit.com.br" style="color: #222; text-decoration: underline;">contato@farmaciafit.com.br</a></p>
+            <p><strong>Site Oficial:</strong> <a href="https://www.farmaciafit.com.br" target="_blank" rel="noopener" style="color: #128c4a; font-weight: 700;">www.farmaciafit.com.br</a></p>
             <p><strong>Endereço:</strong> Galería Jebai Center, Piso 3, Loja 2208, Ciudad del Este - Paraguai</p>
           </div>
 

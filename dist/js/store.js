@@ -281,41 +281,41 @@ const FarmaStore = {
     const orderCode = customerData.order_code || `Pedido #${orderNum}`;
 
     let msg = isCard 
-      ? `*💳 NOVO PEDIDO NO CARTÃO DE CRÉDITO (ATÉ 12X) - FARMA FIT*\n`
-      : `*📦 NOVO PEDIDO - FARMA FIT (ENVIO BRASIL)*\n`;
+      ? `*NOVO PEDIDO NO CARTÃO DE CRÉDITO (ATÉ 12X) - FARMA FIT*\n`
+      : `*NOVO PEDIDO - FARMA FIT (ENVIO BRASIL)*\n`;
     msg += `----------------------------------------\n`;
-    msg += `📋 *Identificação:* ${orderCode}\n`;
+    msg += `*Identificação:* ${orderCode}\n`;
     
-    if (customerData.name) msg += `👤 *Nome Completo:* ${customerData.name}\n`;
-    if (customerData.phone) msg += `📞 *WhatsApp:* ${customerData.phone}\n`;
-    if (customerData.email) msg += `📧 *E-mail:* ${customerData.email}\n`;
-    if (customerData.cpf) msg += `🪪 *CPF:* ${customerData.cpf}\n`;
+    if (customerData.name) msg += `*Nome Completo:* ${customerData.name}\n`;
+    if (customerData.phone) msg += `*WhatsApp:* ${customerData.phone}\n`;
+    if (customerData.email) msg += `*E-mail:* ${customerData.email}\n`;
+    if (customerData.cpf) msg += `*CPF:* ${customerData.cpf}\n`;
     if (customerData.address) {
-      msg += `📍 *Endereço de Entrega (Brasil):*\n   ${customerData.address}\n   CEP: ${customerData.cep || 'A confirmar'} - ${customerData.city || ''}/${customerData.state || ''}\n`;
+      msg += `*Endereço de Entrega (Brasil):*\n${customerData.address}\nCEP: ${customerData.cep || 'A confirmar'} - ${customerData.city || ''}/${customerData.state || ''}\n`;
     }
-    if (customerData.deliveryType) msg += `🚚 *Modalidade de Frete:* ${customerData.deliveryType}\n`;
-    msg += `💳 *Forma de Pagamento:* ${customerData.payment || 'Cartão de Crédito em até 12x'}\n`;
-    if (customerData.obs) msg += `📝 *Observações:* ${customerData.obs}\n`;
+    if (customerData.deliveryType) msg += `*Modalidade de Frete:* ${customerData.deliveryType}\n`;
+    msg += `*Forma de Pagamento:* ${customerData.payment || 'Cartão de Crédito em até 12x'}\n`;
+    if (customerData.obs) msg += `*Observações:* ${customerData.obs}\n`;
 
-    msg += `\n*🛍️ ITENS DO PEDIDO:*\n`;
+    msg += `\n*ITENS DO PEDIDO:*\n`;
     this.cart.forEach((item, i) => {
       const p = item.product;
       const subBrl = ((p.price_usd * this.rates.USD_TO_BRL) * item.qty).toFixed(2).replace('.', ',');
       const unitBrl = (p.price_usd * this.rates.USD_TO_BRL).toFixed(2).replace('.', ',');
-      msg += `${i + 1}. *${p.name}*\n   Qtd: ${item.qty}x (R$ ${unitBrl} un) &bull; Subtotal: R$ ${subBrl}\n`;
+      msg += `${i + 1}. *${p.name}*\n   Qtd: ${item.qty}x (R$ ${unitBrl} un) | Subtotal: R$ ${subBrl}\n`;
     });
 
     const totalBrl = this.getCartTotalBRL();
     const totalUsd = this.getCartTotalUSD().toFixed(2);
 
-    msg += `\n*💰 VALOR TOTAL: R$ ${totalBrl}*\n`;
+    msg += `\n*VALOR TOTAL: R$ ${totalBrl}*\n`;
     msg += `(Equivalente oficial: $${totalUsd} USD)\n`;
     msg += `----------------------------------------\n`;
     
     if (isCard) {
-      msg += `Olá equipe Farma Fit! Preenchi todos os meus dados no site e escolhi pagamento com *Cartão de Crédito em até 12x*. Poderiam me enviar o link seguro da maquininha/gateway para eu efetuar o pagamento e confirmar o envio?`;
+      msg += `Olá, equipe Farma Fit! Realizei meu pedido pelo site e selecionei pagamento com *Cartão de Crédito em até 12x*. Por gentileza, poderiam me enviar o link de pagamento seguro para conclusão do pedido e liberação do envio?`;
     } else {
-      msg += `Olá equipe Farma Fit! Acabei de registrar meu pedido no site e gostaria de confirmar o envio com seguro e código de rastreamento!`;
+      msg += `Olá, equipe Farma Fit! Registrei meu pedido pelo site e gostaria de confirmar o envio com código de rastreamento e seguro contra extravio.`;
     }
 
     return `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;

@@ -30,7 +30,7 @@ function copyRecursiveSync(src, dest) {
 }
 
 // Arquivos e diretórios a serem incluídos no bundle de distribuição
-const itemsToCopy = ['index.html', 'css', 'js', 'assets'];
+const itemsToCopy = ['index.html', 'boleto.html', 'css', 'js', 'assets'];
 
 let totalFiles = 0;
 let totalBytes = 0;

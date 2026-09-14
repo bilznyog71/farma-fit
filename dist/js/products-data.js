@@ -8,7 +8,9 @@ window.FARMA_DATA = {
     "phone": "+55 45 98808-5189",
     "whatsapp": "5545988085189",
     "whatsapp_display": "+55 45 98808-5189",
-    "email": "contato@farmafit.com",
+    "email": "contato@farmaciafit.com.br",
+    "website": "www.farmaciafit.com.br",
+    "url": "https://www.farmaciafit.com.br",
     "address": "Av. Carlos Antonio López com Monseñor Rodríguez, Galería Jebai Center – Entrada 1 – Piso 3, Loja 2208, Microcentro, Ciudad del Este, Paraguay",
     "hours": "Segunda a sábado, das 7h30 às 16h",
     "google_maps_url": "https://maps.app.goo.gl/HL9xFWUP4epCThgk6"

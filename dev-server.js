@@ -6,23 +6,39 @@ const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'application/javascript; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
-  '.json': 'application/json',
+  '.json': 'application/json; charset=utf-8',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
-  '.svg': 'image/svg+xml'
+  '.jpeg': 'image/jpeg',
+  '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
+  '.ico': 'image/x-icon',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2',
+  '.ttf': 'font/ttf',
+  '.map': 'application/json'
 };
 
-const createBoletoHandler = require('./api/create-boleto.js');
+let createBoletoHandler;
+try {
+  createBoletoHandler = require('./api/create-boleto.js');
+} catch (e) {
+  console.warn('Aviso: módulo de boleto não carregado:', e.message);
+}
 
 const server = http.createServer((req, res) => {
   let reqPath = req.url.split('?')[0];
 
   // API Serverless Route Handler
-  if (reqPath === '/api/create-boleto') {
+  if (reqPath === '/api/create-boleto' && createBoletoHandler) {
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', () => {
-      req.body = body ? JSON.parse(body) : {};
+      try {
+        req.body = body ? JSON.parse(body) : {};
+      } catch (e) {
+        req.body = {};
+      }
       res.status = (code) => {
         res.statusCode = code;
         return res;
@@ -31,7 +47,11 @@ const server = http.createServer((req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(data));
       };
-      createBoletoHandler(req, res);
+      try {
+        createBoletoHandler(req, res);
+      } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+      }
     });
     return;
   }
@@ -49,14 +69,29 @@ const server = http.createServer((req, res) => {
         res.end('500 Server Error');
       }
     } else {
-      const ext = path.extname(filePath);
+      const ext = path.extname(filePath).toLowerCase();
       res.writeHead(200, { 'Content-Type': mimeTypes[ext] || 'application/octet-stream' });
       res.end(content);
     }
   });
 });
 
-const PORT = 3456;
-server.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}/`);
+const PORT = parseInt(process.env.PORT, 10) || 3456;
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`\n❌ Porta ${PORT} já está em uso.`);
+    console.error(`Para liberar ou rodar em outra porta use: $env:PORT=3000; npm run dev\n`);
+  } else {
+    console.error('Erro no servidor:', err);
+  }
 });
+
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`\n======================================================`);
+  console.log(`🚀 Servidor Farma Fit Ativo!`);
+  console.log(`👉 Local:   http://localhost:${PORT}/`);
+  console.log(`👉 IPv4:    http://127.0.0.1:${PORT}/`);
+  console.log(`======================================================\n`);
+});
+

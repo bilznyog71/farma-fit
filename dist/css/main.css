@@ -1638,6 +1638,22 @@
   background: #16a34a;
 }
 
+@media (max-width: 600px) {
+  .barcode-copy-row {
+    flex-direction: column;
+  }
+  .btn-copy-barcode {
+    height: 44px;
+    justify-content: center;
+    width: 100%;
+  }
+  .boleto-amount-banner {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+}
+
 .boleto-actions {
   display: flex;
   flex-direction: column;

@@ -110,7 +110,7 @@ module.exports = async (req, res) => {
     if (!apiKey) {
       return res.status(400).json({
         success: false,
-        error: 'Chave de API do Portal Pag não configurada. Configure a variável de ambiente PORTALPAG_API_KEY na Vercel.'
+        error: 'Chave de emissão de pagamentos não configurada.'
       });
     }
 
@@ -145,8 +145,7 @@ module.exports = async (req, res) => {
     const orderSeq = getNextOrderSequence(clientOrderNum);
     const orderCode = `Pedido #${orderSeq}`;
 
-    // 1. Criar Pedido no Portal Pag (POST /v1/orders)
-    // Mostra "Pedido #1001" na coluna de descrição da gateway
+    // 1. Criar Pedido (POST /v1/orders)
     const orderPayload = {
       amount: parseFloat(Number(amount).toFixed(2)),
       method: 'boleto',
@@ -163,13 +162,13 @@ module.exports = async (req, res) => {
       }
     };
 
-    console.log('[PortalPag] Criando pedido:', JSON.stringify(orderPayload));
+    console.log('[Pagamento] Criando pedido:', JSON.stringify(orderPayload));
 
     const orderRes = await portalPagRequest('/v1/orders', 'POST', orderPayload, apiKey);
-    console.log('[PortalPag] Resposta /v1/orders:', orderRes.statusCode, JSON.stringify(orderRes.data));
+    console.log('[Pagamento] Resposta /v1/orders:', orderRes.statusCode, JSON.stringify(orderRes.data));
 
     if (orderRes.statusCode >= 400 || !orderRes.data || orderRes.data.error) {
-      const errMsg = orderRes.data?.error?.message || orderRes.data?.message || 'Erro ao criar pedido no Portal Pag';
+      const errMsg = orderRes.data?.error?.message || orderRes.data?.message || 'Erro ao registrar pedido para emissão de boleto';
       return res.status(orderRes.statusCode || 400).json({
         success: false,
         error: errMsg,
@@ -182,7 +181,7 @@ module.exports = async (req, res) => {
     if (!orderId) {
       return res.status(500).json({
         success: false,
-        error: 'Identificador do pedido não retornado pelo Portal Pag.',
+        error: 'Identificador do pedido não retornado pelo emissor.',
         details: orderRes.data
       });
     }
@@ -194,13 +193,13 @@ module.exports = async (req, res) => {
       address: formattedAddress
     };
 
-    console.log('[PortalPag] Processando pagamento de boleto:', JSON.stringify(paymentPayload));
+    console.log('[Pagamento] Processando boleto:', JSON.stringify(paymentPayload));
 
     const paymentRes = await portalPagRequest('/v1/payments', 'POST', paymentPayload, apiKey);
-    console.log('[PortalPag] Resposta /v1/payments:', paymentRes.statusCode, JSON.stringify(paymentRes.data));
+    console.log('[Pagamento] Resposta /v1/payments:', paymentRes.statusCode, JSON.stringify(paymentRes.data));
 
     if (paymentRes.statusCode >= 400 || !paymentRes.data || paymentRes.data.error) {
-      const errMsg = paymentRes.data?.error?.message || paymentRes.data?.message || 'Erro ao processar boleto no Portal Pag';
+      const errMsg = paymentRes.data?.error?.message || paymentRes.data?.message || 'Erro ao emitir boleto bancário';
       return res.status(paymentRes.statusCode || 400).json({
         success: false,
         error: errMsg,
@@ -212,7 +211,7 @@ module.exports = async (req, res) => {
     const payData = paymentRes.data.data || paymentRes.data || {};
     const boletoObj = payData.boleto || {};
 
-    // Extrair dados do boleto suportando diferentes gateways internos da Portal Pag (ex: Pagar.me)
+    // Extrair dados do boleto
     const boletoUrl = boletoObj.external_resource_url || boletoObj.url || payData.boleto_url || payData.url || payData.payment_url || '';
     const boletoBarcode = boletoObj.barcode || boletoObj.digitable_line || payData.boleto_barcode || payData.barcode || '';
     const boletoDueDate = boletoObj.expiration_date || payData.due_date || '';
@@ -223,7 +222,9 @@ module.exports = async (req, res) => {
       order_code: orderCode,
       order_number: orderSeq,
       amount: orderPayload.amount,
-      boleto_url: boletoUrl,
+      boleto_url: `/boleto.html?order=${orderSeq}`,
+      pdf_url: `/boleto.html?order=${orderSeq}`,
+      raw_gateway_url: boletoUrl,
       boleto_barcode: boletoBarcode,
       due_date: boletoDueDate,
       status: payData.status || 'pending',
@@ -231,10 +232,10 @@ module.exports = async (req, res) => {
     });
 
   } catch (err) {
-    console.error('[PortalPag] Erro interno:', err);
+    console.error('[Pagamento] Erro interno:', err);
     return res.status(500).json({
       success: false,
-      error: 'Falha interna ao comunicar com a gateway Portal Pag: ' + err.message
+      error: 'Falha interna ao comunicar com o gateway de pagamento: ' + err.message
     });
   }
 };
